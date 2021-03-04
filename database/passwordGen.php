@@ -28,3 +28,12 @@ $password_en_clair = "youtube456?";
 // Affichage du mot de passe crypté.
 $encrypted = password_hash($password_en_clair, PASSWORD_BCRYPT);
 echo $encrypted;
+
+echo "<br>";
+
+//mdp de Winnie
+$password_en_clair = "miel7539";
+
+// Affichage du mot de passe crypté.
+$encrypted = password_hash($password_en_clair, PASSWORD_BCRYPT);
+echo $encrypted;

@@ -21,6 +21,9 @@ if (issetPostParams('username', 'password')) {
             session_start();
             $_SESSION['username'] = $username;
             $_SESSION['password'] = $password;
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['firstname'] = $user['firstname'];
+            $_SESSION['lastname'] = $user['lastname'];
 
             // on redirige l'utilisateur à la page bienvenue.
             header("Location: bienvenue.php");

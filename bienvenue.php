@@ -14,7 +14,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
         <link rel="stylesheet" href="css/basics.css">
     </head>
     <body style="background: antiquewhite">
-    <div style="color: olivedrab" ><?php echo 'Bienvenue, ' . $_SESSION['username'] . ' !'; ?></div>
+    <div style="color: olivedrab" ><?php echo 'Bienvenue, ' . $_SESSION['firstname'] . ' ' . $_SESSION['lastname'] . ' !'; ?></div>
 
     <ul>
         <li><a href="create.php">Créer une randonnée</a></li>
