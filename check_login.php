@@ -9,18 +9,29 @@ if (issetPostParams('username', 'password')) {
     $username = sanitize($_POST['username']);
     $password = sanitize($_POST['password']);
 
-    $stmt = $bdd->prepare("SELECT * FROM user WHERE username = '$username' AND password = '$password'");
+    // je récupère que le nom de l'utilisateur
+    $stmt = $bdd->prepare("SELECT * FROM user WHERE username = '$username'");
 
-    $result = $stmt->execute();
+    $stmt->execute();
 
     foreach ($stmt->fetchAll() as $user) {
-        echo "Username = " . $user['username'] . ", password = " . $user['password'];
-        session_start ();
-        $_SESSION['username'] = $username;
-        $_SESSION['password'] = $password;
+        // Je vérifie que le mdp cripté sur ma base de donnée que j'ai récupéré grace à la boucle '$user['password']' correpond au mdp entré par l'utilisateur
+        if (password_verify($password, $user['password'])) {
+            // Si les 2 mdp correspondent alors on ouvre la session et on stocke les données de l'utilisateur dans une session.
+            session_start();
+            $_SESSION['username'] = $username;
+            $_SESSION['password'] = $password;
 
-        header("Location: bienvenue.php");
+            // on redirige l'utilisateur à la page bienvenue.
+            header("Location: bienvenue.php");
+        }
+        else {
+            echo '<body onLoad="alert(\'Membre non reconnu !\')">';
+            echo '<meta http-equiv="refresh" content="0;URL=login.php">';
+        }
     }
 }
-echo '<body onLoad="alert(\'Membre non reconnu !\')">';
-echo '<meta http-equiv="refresh" content="0;URL=login.php">';
+else {
+    echo "Aucun compte associé à ce nom d'utilistaur ou mot de passe";
+}
+
